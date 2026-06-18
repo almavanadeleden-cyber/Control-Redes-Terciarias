@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Ramales Terciarios - Canal de Riego Cayambe Pedro Moncayo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <div id="auth-screen" class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <i class="fa-solid fa-droplet logo-icon"></i>
+                <h1>Canal de Riego Cayambe Pedro Moncayo</h1>
+                <h2>Control de Ramales Terciarios</h2>
+            </div>
+            
+            <form id="auth-form">
+                <div class="form-group">
+                    <label for="auth-email">Correo Electrónico Institucional</label>
+                    <div class="input-icon">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="auth-email" required placeholder="usuario@dominio.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="auth-password">Contraseña</label>
+                    <div class="input-icon">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="auth-password" required placeholder="••••••••" minlength="6">
+                    </div>
+                </div>
+                
+                <button type="submit" id="btn-primary-auth" class="btn btn-block btn-primary">Iniciar Sesión</button>
+            </form>
+            
+            <div class="auth-toggle">
+                <span id="auth-switch-text">¿No tienes una cuenta?</span>
+                <button id="btn-toggle-auth" class="btn-link">Registrarse aquí</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-screen" class="app-container hidden">
+        
+        <header class="main-header">
+            <div class="header-brand">
+                <i class="fa-solid fa-droplet"></i>
+                <div>
+                    <h1>Canal de Riego Cayambe Pedro Moncayo</h1>
+                    <small>Sistema Técnico Administrativo de Ramales Terciarios</small>
+                </div>
+            </div>
+            <div class="header-user">
+                <span id="user-display"><i class="fa-solid fa-user-gear"></i> Cargando usuario...</span>
+                <button id="btn-logout" class="btn btn-secondary btn-sm" title="Cerrar Sesión">
+                    <i class="fa-solid fa-right-from-bracket"></i> Salir
+                </button>
+            </div>
+        </header>
+
+        <section class="dashboard-metrics">
+            <div class="metric-card" data-filter="Todos">
+                <div class="metric-icon bg-blue"><i class="fa-solid fa-diagram-project"></i></div>
+                <div class="metric-data"><h3 id="m-total">0</h3><p>Total Ramales</p></div>
+            </div>
+            <div class="metric-card" data-filter="Construido">
+                <div class="metric-icon bg-green"><i class="fa-solid fa-circle-check"></i></div>
+                <div class="metric-data"><h3 id="m-construidos">0</h3><p>Construidos</p></div>
+            </div>
+            <div class="metric-card" data-filter="En construcción">
+                <div class="metric-icon bg-orange"><i class="fa-solid fa-helmet-safety"></i></div>
+                <div class="metric-data"><h3 id="m-construccion">0</h3><p>En Construcción</p></div>
+            </div>
+            <div class="metric-card" data-filter="Diseño">
+                <div class="metric-icon bg-purple"><i class="fa-solid fa-compass-drafting"></i></div>
+                <div class="metric-data"><h3 id="m-diseno">0</h3><p>En Diseño</p></div>
+            </div>
+            <div class="metric-card" data-filter="N/A">
+                <div class="metric-icon bg-gray"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div class="metric-data"><h3 id="m-na">0</h3><p>N/A</p></div>
+            </div>
+        </section>
+
+        <main class="workspace">
+            
+            <nav class="breadcrumb">
+                <span id="bc-inicio" class="active-crumb">Inicio (Parroquias)</span>
+                <span id="bc-parroquia" class="hidden"></span>
+                <span id="bc-ramal" class="hidden"></span>
+            </nav>
+
+            <section id="view-parroquias" class="view-section">
+                <div class="section-title">
+                    <h2>Selección de Parroquia Operativa</h2>
+                    <p>Seleccione una parroquia para auditar y gestionar sus ramales asignados.</p>
+                </div>
+                <div class="parroquias-grid" id="parroquias-container">
+                    </div>
+            </section>
+
+            <section id="view-ramales" class="view-section hidden">
+                <div class="action-bar">
+                    <button id="btn-back-parroquias" class="btn btn-secondary">
+                        <i class="fa-solid fa-arrow-left"></i> Volver a Parroquias
+                    </button>
+                    <div class="search-filter-group">
+                        <div class="search-box">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="search-ramal" placeholder="Buscar ramal por nombre...">
+                        </div>
+                        <select id="filter-estado">
+                            <option value="Todos">Todos los Estados</option>
+                            <option value="En construcción">En construcción</option>
+                            <option value="Construido">Construido</option>
+                            <option value="Diseño">Diseño</option>
+                            <option value="N/A">N/A</option>
+                        </select>
+                    </div>
+                    <button id="btn-nuevo-ramal" class="btn btn-success">
+                        <i class="fa-solid fa-plus"></i> Nuevo Ramal
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre del Ramal</th>
+                                <th>Estado</th>
+                                <th>Planos As Built</th>
+                                <th>Cronograma</th>
+                                <th>Conexión Sec.</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ramales-table-body">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="view-form-ramal" class="view-section hidden">
+                <div class="action-bar">
+                    <button id="btn-cancel-form" class="btn btn-secondary">
+                        <i class="fa-solid fa-xmark"></i> Cancelar / Volver
+                    </button>
+                    <h2 id="form-title">Nueva Ficha Técnica de Ramal</h2>
+                </div>
+
+                <form id="ramal-data-form" class="tech-form">
+                    <input type="hidden" id="ramal-id">
+                    
+                    <div class="form-grid">
+                        <div class="form-card">
+                            <h3><i class="fa-solid fa-info-circle"></i> Datos de Identificación</h3>
+                            <div class="form-group">
+                                <label for="ramal-nombre">Nombre del Ramal *</label>
+                                <input type="text" id="ramal-nombre" required placeholder="Ej. Ramal San Luis High">
+                            </div>
+                            <div class="form-group">
+                                <label for="ramal-parroquia">Parroquia Asignada *</label>
+                                <select id="ramal-parroquia" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="Olmedo">Olmedo</option>
+                                    <option value="Ayora">Ayora</option>
+                                    <option value="Tupigachi">Tupigachi</option>
+                                    <option value="Tabacundo">Tabacundo</option>
+                                    <option value="La Esperanza">La Esperanza</option>
+                                    <option value="Tocachi">Tocachi</option>
+                                    <option value="Malchingui">Malchingui</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="ramal-estado">Estado Operativo *</label>
+                                <select id="ramal-estado" required>
+                                    <option value="Diseño">Diseño</option>
+                                    <option value="En construcción">En construcción</option>
+                                    <option value="Construido">Construido</option>
+                                    <option value="N/A">N/A</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-card">
+                            <h3><i class="fa-solid fa-calendar-days"></i> Hitos de Contratación y Entrega</h3>
+                            <div class="form-group">
+                                <label for="ramal-fecha-contrato">Fecha de Firma de Contrato</label>
+                                <input type="date" id="ramal-fecha-contrato">
+                            </div>
+                            <div class="form-group">
+                                <label for="ramal-fecha-provisional">Fecha de Acta Entrega Provisional</label>
+                                <input type="date" id="ramal-fecha-provisional">
+                            </div>
+                            <div class="form-group">
+                                <label for="ramal-fecha-definitiva">Fecha de Entrega Definitiva</label>
+                                <input type="date" id="ramal-fecha-definitiva">
+                            </div>
+                        </div>
+
+                        <div class="form-card">
+                            <h3><i class="fa-solid fa-file-shield"></i> Validaciones e Ingeniería</h3>
+                            <div class="form-group">
+                                <label for="ramal-planos">Planos As Built *</label>
+                                <select id="ramal-planos" required>
+                                    <option value="No entregados">No entregados</option>
+                                    <option value="Entregados">Entregados</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="ramal-cronograma">Cronograma de Turnados *</label>
+                                <select id="ramal-cronograma" required>
+                                    <option value="No entregados">No entregados</option>
+                                    <option value="Entregados">Entregados</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="ramal-peticion">Petición de Conexión Secundaria *</label>
+                                <select id="ramal-peticion" required>
+                                    <option value="No">No</option>
+                                    <option value="Sí">Sí</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions-footer">
+                        <button type="button" id="btn-eliminar-ramal" class="btn btn-danger hidden">
+                            <i class="fa-solid fa-trash-can"></i> Eliminar Ramal
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fa-solid fa-floppy-disk"></i> Guardar Ficha en Firestore
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
