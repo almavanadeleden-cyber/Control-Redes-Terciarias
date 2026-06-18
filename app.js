@@ -209,16 +209,18 @@ function renderTablaRamales() {
         let iconPeticion = ramal.peticionConexionSecundaria === 'Sí' ? 'fa-circle-check tech-ok' : 'fa-circle-minus tech-ko';
 
         tr.innerHTML = `
-            <strong><td>${ramal.nombre}</td></strong>
-            <td><span class="badge ${badgeClass}">${ramal.estado}</span></td>
-            <td style="text-align:center;"><i class="fa-solid ${iconAsBuilt} tech-icon"></i></td>
-            <td style="text-align:center;"><i class="fa-solid ${iconCronograma} tech-icon"></i></td>
-            <td style="text-align:center;"><i class="fa-solid ${iconPeticion} tech-icon"></i></td>
-            <td>
+            <td><strong>${ramal.nombre}</strong></td>
+    <td><span class="badge ${badgeClass}">${ramal.estado}</span></td>
+    <td style="text-align:center;"><i class="fa-solid ${iconAsBuilt} tech-icon"></i></td>
+    <td style="text-align:center;"><i class="fa-solid ${iconCronograma} tech-icon"></i></td>
+    <td style="text-align:center;"><i class="fa-solid ${iconPeticion} tech-icon"></i></td>
+    <td>
                 <button class="btn btn-secondary btn-sm btn-edit" data-id="${ramal.id}"><i class="fa-solid fa-pen-to-square"></i> Ficha</button>
             </td>
         `;
-        
+       
+    
+  
         tr.querySelector('.btn-edit').addEventListener('click', () => abrirFichaTecnica(ramal));
         ramalesTableBody.appendChild(tr);
     });
