@@ -6,29 +6,32 @@
   <title>Control de Ramales Terciarios</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="./style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
   <div id="toast" class="toast hidden"></div>
+
   <section id="auth-screen" class="auth-container">
     <div class="auth-visual">
       <div class="auth-overlay"></div>
-      <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80" alt="Canal de riego y paisaje agrícola" loading="lazy" width="1200" height="900">
+      <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1400&q=80" alt="Paisaje agrícola de riego" loading="lazy" width="1400" height="900">
       <div class="auth-copy">
-        <span class="eyebrow">Gestión hídrica territorial</span>
-        <h1>Control inteligente de ramales terciarios</h1>
-        <p>Consulta fichas técnicas, enlaces documentales en Drive, inspecciones de campo e informes PDF en un solo panel.</p>
+        <span class="eyebrow">Canal Cayambe Pedro Moncayo</span>
+        <h1>Gestión técnica de ramales e inspecciones</h1>
+        <p>Administra ramales, abre documentación en Drive, registra inspecciones con fotos y genera informes PDF en un entorno más visual y amigable.</p>
       </div>
     </div>
+
     <div class="auth-card">
       <div class="auth-header">
         <div class="brand-mark"><i class="fa-solid fa-water"></i></div>
         <h2>Canal de Riego Cayambe Pedro Moncayo</h2>
-        <p>Sistema técnico administrativo</p>
+        <p>Acceso al sistema operativo técnico</p>
       </div>
+
       <form id="auth-form">
         <div class="form-group">
           <label for="auth-email">Correo institucional</label>
@@ -37,6 +40,7 @@
             <input type="email" id="auth-email" required placeholder="usuario@dominio.com">
           </div>
         </div>
+
         <div class="form-group">
           <label for="auth-password">Contraseña</label>
           <div class="input-icon">
@@ -44,23 +48,26 @@
             <input type="password" id="auth-password" required minlength="6" placeholder="******">
           </div>
         </div>
+
         <button type="submit" id="btn-primary-auth" class="btn btn-primary btn-block">
           <i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión
         </button>
       </form>
+
       <div class="auth-toggle">
         <span id="auth-switch-text">¿No tienes una cuenta?</span>
         <button type="button" id="btn-toggle-auth" class="btn-link">Registrarse aquí</button>
       </div>
     </div>
   </section>
+
   <div id="app-screen" class="app-container hidden">
     <header class="main-header">
       <div class="header-brand">
         <div class="header-logo"><i class="fa-solid fa-droplet"></i></div>
         <div>
           <h1>Control de Ramales Terciarios</h1>
-          <small>Seguimiento técnico, documental e inspecciones</small>
+          <small>Canal de Riego Cayambe Pedro Moncayo</small>
         </div>
       </div>
       <div class="header-user">
@@ -68,56 +75,108 @@
         <button id="btn-logout" class="btn btn-secondary btn-sm"><i class="fa-solid fa-right-from-bracket"></i> Salir</button>
       </div>
     </header>
+
     <section class="hero-banner">
-      <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1600&q=80" alt="Paisaje andino con canal y zona agrícola" loading="lazy" width="1600" height="600">
+      <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1600&q=80" alt="Zona agrícola verde y canal" loading="lazy" width="1600" height="620">
       <div class="hero-content">
         <span class="eyebrow">Monitoreo operativo</span>
-        <h2>Información técnica, visitas y documentación por cada ramal</h2>
-        <p>Accede rápido a fichas, enlaces de Drive, historial de inspecciones y reportes en PDF.</p>
+        <h2>Ramales, documentación, inspecciones y reportes en un solo lugar</h2>
+        <p>El canal abastece a parroquias como Olmedo, Ayora, Tupigachi, La Esperanza, Tabacundo, Tocachi y Malchinguí, dentro de un sistema que impulsa la producción y el abastecimiento de agua de riego.</p>
       </div>
     </section>
+
     <section class="dashboard-metrics">
-      <article class="metric-card" id="metric-total"><div class="metric-icon bg-blue"><i class="fa-solid fa-diagram-project"></i></div><div class="metric-data"><h3 id="m-total">0</h3><p>Total ramales</p></div></article>
-      <article class="metric-card" id="metric-construidos"><div class="metric-icon bg-green"><i class="fa-solid fa-circle-check"></i></div><div class="metric-data"><h3 id="m-construidos">0</h3><p>Construidos</p></div></article>
-      <article class="metric-card" id="metric-construccion"><div class="metric-icon bg-orange"><i class="fa-solid fa-helmet-safety"></i></div><div class="metric-data"><h3 id="m-construccion">0</h3><p>En construcción</p></div></article>
-      <article class="metric-card" id="metric-diseno"><div class="metric-icon bg-purple"><i class="fa-solid fa-compass-drafting"></i></div><div class="metric-data"><h3 id="m-diseno">0</h3><p>En diseño</p></div></article>
-      <article class="metric-card" id="metric-na"><div class="metric-icon bg-gray"><i class="fa-solid fa-circle-question"></i></div><div class="metric-data"><h3 id="m-na">0</h3><p>N/A</p></div></article>
+      <article class="metric-card" id="metric-total">
+        <div class="metric-icon bg-blue"><i class="fa-solid fa-diagram-project"></i></div>
+        <div class="metric-data"><h3 id="m-total">0</h3><p>Total ramales</p></div>
+      </article>
+      <article class="metric-card" id="metric-construidos">
+        <div class="metric-icon bg-green"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="metric-data"><h3 id="m-construidos">0</h3><p>Construidos</p></div>
+      </article>
+      <article class="metric-card" id="metric-construccion">
+        <div class="metric-icon bg-orange"><i class="fa-solid fa-helmet-safety"></i></div>
+        <div class="metric-data"><h3 id="m-construccion">0</h3><p>En construcción</p></div>
+      </article>
+      <article class="metric-card" id="metric-diseno">
+        <div class="metric-icon bg-purple"><i class="fa-solid fa-compass-drafting"></i></div>
+        <div class="metric-data"><h3 id="m-diseno">0</h3><p>En diseño</p></div>
+      </article>
+      <article class="metric-card" id="metric-na">
+        <div class="metric-icon bg-gray"><i class="fa-solid fa-circle-question"></i></div>
+        <div class="metric-data"><h3 id="m-na">0</h3><p>N/A</p></div>
+      </article>
     </section>
+
     <main class="workspace">
       <nav class="breadcrumb">
         <span id="bc-inicio" class="active-crumb">Inicio</span>
         <span id="bc-parroquia" class="hidden"></span>
         <span id="bc-ramal" class="hidden"></span>
       </nav>
+
       <section id="view-parroquias" class="view-section">
         <div class="section-title section-title-highlight">
           <h2>Selección de parroquia operativa</h2>
-          <p>Explora la red terciaria por parroquia y entra a cada ramal para revisar su ficha, documentos y visitas de campo.</p>
+          <p>El Canal Cayambe-Pedro Moncayo alimenta miles de hectáreas fértiles y fortalece la vida productiva del territorio.</p>
+        </div>
+        <div class="gallery-strip">
+          <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=900&q=80" alt="Canal de riego en zona agrícola" loading="lazy" width="900" height="500">
+          <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=80" alt="Campo productivo irrigado" loading="lazy" width="900" height="500">
+          <img src="https://images.unsplash.com/photo-1492496913980-501348b61469?auto=format&fit=crop&w=900&q=80" alt="Paisaje verde de producción agrícola" loading="lazy" width="900" height="500">
         </div>
         <div class="parroquias-grid" id="parroquias-container"></div>
       </section>
+
       <section id="view-ramales" class="view-section hidden">
         <div class="section-title section-title-highlight">
           <h2 id="ramales-title">Todos los ramales del sistema</h2>
           <p id="ramales-description">Se muestran 0 registros según la selección actual.</p>
         </div>
+
         <div class="action-bar">
           <button id="btn-back-parroquias" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Volver a parroquias</button>
           <div class="search-filter-group">
-            <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input type="text" id="search-ramal" placeholder="Buscar por nombre, código o parroquia..."></div>
-            <select id="filter-estado"><option value="Todos">Todos los estados</option><option value="Construido">Construido</option><option value="En construcción">En construcción</option><option value="Diseño">Diseño</option><option value="N/A">N/A</option></select>
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="search-ramal" placeholder="Buscar por nombre, código o parroquia...">
+            </div>
+            <select id="filter-estado">
+              <option value="Todos">Todos los estados</option>
+              <option value="Construido">Construido</option>
+              <option value="En construcción">En construcción</option>
+              <option value="Diseño">Diseño</option>
+              <option value="N/A">N/A</option>
+            </select>
           </div>
           <button id="btn-nuevo-ramal" class="btn btn-success"><i class="fa-solid fa-plus"></i> Nuevo ramal</button>
         </div>
+
         <div class="table-container">
           <table class="data-table">
-            <thead><tr><th>Código</th><th>Nombre</th><th>Parroquia</th><th>Estado</th><th>Longitud</th><th>Drive</th><th>Inspección</th><th>Ficha</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Parroquia</th>
+                <th>Estado</th>
+                <th>Longitud</th>
+                <th>Drive</th>
+                <th>Inspección</th>
+                <th>Ficha</th>
+              </tr>
+            </thead>
             <tbody id="ramales-table-body"></tbody>
           </table>
         </div>
       </section>
+
       <section id="view-form-ramal" class="view-section hidden">
-        <div class="action-bar form-topbar"><button id="btn-cancel-form" type="button" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Volver</button><h2 id="form-title">Nueva ficha técnica de ramal</h2></div>
+        <div class="action-bar form-topbar">
+          <button id="btn-cancel-form" type="button" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+          <h2 id="form-title">Nueva ficha técnica de ramal</h2>
+        </div>
+
         <form id="ramal-data-form" class="tech-form">
           <input type="hidden" id="ramal-id">
           <div class="form-grid">
@@ -131,44 +190,77 @@
               <div class="form-group"><label for="ramal-tecnificado">Tecnificado</label><select id="ramal-tecnificado"><option value="No">No</option><option value="Sí">Sí</option></select></div>
               <div class="form-group"><label for="ramal-drive-link">Link de Drive</label><input type="url" id="ramal-drive-link" placeholder="https://drive.google.com/..." /></div>
             </div>
-            <div class="form-card">
-              <h3><i class="fa-solid fa-calendar-days"></i> Hitos y documentación</h3>
-              <div class="form-group"><label for="ramal-fecha-contrato">Fecha de contrato</label><input type="date" id="ramal-fecha-contrato"></div>
-              <div class="form-group"><label for="ramal-fecha-provisional">Entrega provisional</label><input type="date" id="ramal-fecha-provisional"></div>
-              <div class="form-group"><label for="ramal-fecha-definitiva">Entrega definitiva</label><input type="date" id="ramal-fecha-definitiva"></div>
-              <div class="form-group"><label for="ramal-planos">Planos As Built</label><select id="ramal-planos"><option value="No entregados">No entregados</option><option value="Entregados">Entregados</option></select></div>
-              <div class="form-group"><label for="ramal-cronograma">Cronograma de turnados</label><select id="ramal-cronograma"><option value="No entregados">No entregados</option><option value="Entregados">Entregados</option></select></div>
-              <div class="form-group"><label for="ramal-peticion">Petición de conexión secundaria</label><select id="ramal-peticion"><option value="No">No</option><option value="Sí">Sí</option></select></div>
+
+            <div class="form-card image-card">
+              <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=900&q=80" alt="Infraestructura de agua y campo" loading="lazy" width="900" height="600">
+              <div class="image-card-copy">
+                <h3>Documentación del ramal</h3>
+                <p>Registra en cada ficha el enlace directo a Drive para abrir planos, memorias, fotografías y otros respaldos del ramal.</p>
+              </div>
             </div>
           </div>
-          <div class="form-actions-footer"><button type="button" id="btn-eliminar-ramal" class="btn btn-danger hidden"><i class="fa-solid fa-trash"></i> Eliminar ramal</button><button type="submit" class="btn btn-primary btn-lg"><i class="fa-solid fa-floppy-disk"></i> Guardar ficha</button></div>
+
+          <div class="form-actions-footer">
+            <button type="button" id="btn-eliminar-ramal" class="btn btn-danger hidden"><i class="fa-solid fa-trash"></i> Eliminar ramal</button>
+            <button type="submit" class="btn btn-primary btn-lg"><i class="fa-solid fa-floppy-disk"></i> Guardar ficha</button>
+          </div>
         </form>
       </section>
+
       <section id="view-inspeccion" class="view-section hidden">
-        <div class="action-bar form-topbar"><button id="btn-cancel-inspeccion" type="button" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Volver</button><h2 id="inspection-title">Registro de inspección</h2></div>
+        <div class="action-bar form-topbar">
+          <button id="btn-cancel-inspeccion" type="button" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Volver</button>
+          <h2 id="inspection-title">Realizar inspección</h2>
+        </div>
+
         <form id="inspection-form" class="tech-form">
-          <input type="hidden" id="inspection-id"><input type="hidden" id="inspection-ramal-id">
+          <input type="hidden" id="inspection-id">
+          <input type="hidden" id="inspection-ramal-id">
+
           <div class="form-grid">
             <div class="form-card">
-              <h3><i class="fa-solid fa-route"></i> Datos de la visita</h3>
+              <h3><i class="fa-solid fa-clipboard-check"></i> Datos de la inspección</h3>
+              <div class="form-group"><label for="inspection-parroquia">Parroquia</label><input type="text" id="inspection-parroquia" readonly></div>
               <div class="form-group"><label for="inspection-ramal-name">Ramal</label><input type="text" id="inspection-ramal-name" readonly></div>
               <div class="form-group"><label for="inspection-date">Fecha</label><input type="date" id="inspection-date" required></div>
               <div class="form-group"><label for="inspection-technician">Responsable</label><input type="text" id="inspection-technician" required placeholder="Nombre del inspector"></div>
+              <div class="form-group"><label for="inspection-motive">Motivo de la inspección</label><input type="text" id="inspection-motive" required placeholder="Control rutinario, novedad, mantenimiento, denuncia..."></div>
               <div class="form-group"><label for="inspection-status">Estado observado</label><select id="inspection-status" required><option value="Operativo">Operativo</option><option value="Con novedades">Con novedades</option><option value="Requiere intervención">Requiere intervención</option></select></div>
-              <div class="form-group"><label for="inspection-activity">Actividad realizada</label><input type="text" id="inspection-activity" required placeholder="Inspección visual, limpieza, aforo..."></div>
             </div>
+
             <div class="form-card">
-              <h3><i class="fa-solid fa-clipboard-check"></i> Observaciones</h3>
-              <div class="form-group"><label for="inspection-observations">Observaciones</label><textarea id="inspection-observations" rows="4" required></textarea></div>
-              <div class="form-group"><label for="inspection-actions">Acciones recomendadas</label><textarea id="inspection-actions" rows="4"></textarea></div>
+              <h3><i class="fa-solid fa-camera"></i> Evidencia y observaciones</h3>
+              <div class="form-group"><label for="inspection-photo">Adjuntar fotos</label><input type="file" id="inspection-photo" accept="image/*" multiple></div>
+              <div id="photo-preview" class="photo-preview"></div>
+              <div class="form-group"><label for="inspection-observations">Observaciones</label><textarea id="inspection-observations" rows="5" required placeholder="Describa el estado del ramal, novedades, daños, limpieza, compuertas, accesos, etc."></textarea></div>
+              <div class="form-group"><label for="inspection-actions">Acciones recomendadas</label><textarea id="inspection-actions" rows="4" placeholder="Acciones correctivas o seguimiento requerido"></textarea></div>
             </div>
           </div>
-          <div class="form-actions-footer"><button type="button" id="btn-generate-pdf" class="btn btn-success"><i class="fa-solid fa-file-pdf"></i> Generar PDF</button><button type="submit" class="btn btn-primary btn-lg"><i class="fa-solid fa-floppy-disk"></i> Guardar inspección</button></div>
+
+          <div class="form-actions-footer">
+            <button type="button" id="btn-generate-pdf" class="btn btn-success"><i class="fa-solid fa-file-pdf"></i> Generar PDF</button>
+            <button type="submit" class="btn btn-primary btn-lg"><i class="fa-solid fa-floppy-disk"></i> Guardar inspección</button>
+          </div>
         </form>
-        <div class="table-container inspections-history"><table class="data-table"><thead><tr><th>Fecha</th><th>Responsable</th><th>Estado</th><th>Actividad</th></tr></thead><tbody id="inspection-history-body"></tbody></table></div>
+
+        <div class="table-container inspections-history">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Parroquia</th>
+                <th>Ramal</th>
+                <th>Motivo</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="inspection-history-body"></tbody>
+          </table>
+        </div>
       </section>
     </main>
   </div>
+
   <script type="module" src="./app.js"></script>
 </body>
 </html>
