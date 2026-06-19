@@ -175,7 +175,7 @@ function renderTablaRamales() {
   ramalesTableBody.innerHTML = '';
 
   if (!ramalesFiltrados.length) {
-    ramalesTableBody.innerHTML = '<tr><td colspan="7"><div class="empty-state-inline"><i class="fas fa-circle-info"></i><span>No se encontraron ramales con los filtros aplicados.</span></div></td></tr>';
+    ramalesTableBody.innerHTML = '<tr><td colspan="9"><div class="empty-state-inline"><i class="fas fa-circle-info"></i><span>No se encontraron ramales con los filtros aplicados.</span></div></td></tr>';
     return;
   }
 
@@ -201,7 +201,8 @@ function renderTablaRamales() {
       <td><button class="btn btn-primary btn-sm" data-id="${ramal.id}"><i class="fas fa-file-lines"></i> Abrir</button></td>
     `;
 
-    tr.querySelector('button').addEventListener('click', () => abrirFichaTecnica(ramal));
+    tr.querySelector('[data-id]').addEventListener('click', () => abrirFichaTecnica(ramal));
+        tr.querySelector('.btn-inspeccion')?.addEventListener('click', () => abrirInspeccion(ramal));
     ramalesTableBody.appendChild(tr);
   });
 }
@@ -377,3 +378,46 @@ $('metric-construidos').addEventListener('click', () => abrirListadoGlobalPorEst
 $('metric-construccion').addEventListener('click', () => abrirListadoGlobalPorEstado('En construcción', 'Ramales en construcción'));
 $('metric-diseno').addEventListener('click', () => abrirListadoGlobalPorEstado('Diseño', 'Ramales en diseño'));
 $('metric-na').addEventListener('click', () => abrirListadoGlobalPorEstado('N/A', 'Ramales N/A'));
+
+const viewInspeccion = id('view-inspeccion');
+const inspectionForm = id('inspection-form');
+const inspectionTitle = id('inspection-title');
+const inspectionHistoryBody = id('inspection-history-body');
+const btnCancelInspeccion = id('btn-cancel-inspeccion');
+const btnGeneratePdf = id('btn-generate-pdf');
+let ramalInspeccionActual = null;
+let cacheInspecciones = [];
+
+const originalShowView = showView;
+showView = function(viewName) {
+  viewParroquias.classList.add('hidden');
+  viewRamales.classList.add('hidden');
+  viewFormRamal.classList.add('hidden');
+  viewInspeccion?.classList.add('hidden');
+  if (viewName === 'parroquias') viewParroquias.classList.remove('hidden');
+  if (viewName === 'ramales') viewRamales.classList.remove('hidden');
+  if (viewName === 'form') viewFormRamal.classList.remove('hidden');
+  if (viewName === 'inspeccion') viewInspeccion?.classList.remove('hidden');
+  actualizarBreadcrumb();
+};
+
+async function fetchInspeccionesPorRamal(ramalId) {
+  try {
+    const q = query(collection(db, 'inspecciones'), where('ramalId', '==', ramalId), orderBy('fecha', 'desc'));
+    const querySnapshot = await getDocs(q);
+    cacheInspecciones = [];
+    querySnapshot.forEach((docSnap) => cacheInspecciones.push({ id: docSnap.id, ...docSnap.data() }));
+    renderHistorialInspecciones();
+  } catch (error) {
+    inspectionHistoryBody.innerHTML = '<tr><td colspan="4"><div class="empty-state-inline"><i class="fa-solid fa-circle-info"></i><span>No fue posible cargar el historial de inspecciones.</span></div></td></tr>';
+  }
+}
+
+function renderHistorialInspecciones() {
+  if (!inspectionHistoryBody) return;
+  inspectionHistoryBody.innerHTML = '';
+  if (!cacheInspecciones.length) {
+    inspectionHistoryBody.innerHTML = '<tr><td colspan="4"><div class="empty-state-inline"><i class="fa-solid fa-circle-info"></i><span>Este ramal todavía no registra inspecciones.</span></div></td></tr>';
+    return;
+  }
+}
